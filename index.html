@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>✨ Ultimate Ceramics Blog ✨</title>
+<style>
+:root {
+  --bg1:#f7d98e; --bg2:#f7a97f; --accent:#d35400; --purple:#6c5ce7; --card:#ffffff;
+  --soft:#fff6ec; --mint:#e8f8f5; --text:#333;
+}
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { margin:0; font-family:'Segoe UI', Arial, sans-serif; color:var(--text);
+  background:linear-gradient(135deg,var(--bg1),var(--bg2)); }
+.container { max-width:1100px; margin:28px auto; background:rgba(255,255,255,.96); padding:30px;
+  border-radius:24px; box-shadow:0 18px 50px rgba(0,0,0,.20); }
+.progress-wrap { position:sticky; top:0; z-index:40; margin:-8px 0 18px; }
+.progress-bar { height:8px; background:#eadfd8; border-radius:999px; overflow:hidden; }
+.progress { height:100%; width:0; background:linear-gradient(90deg,#ff8a00,#e52e71); transition:width .15s linear; }
+.hero { text-align:center; padding:10px 8px 22px; }
+.hero h1 { font-size:46px; margin:6px 0; color:var(--accent); }
+.hero p { font-size:18px; margin:6px 0 0; }
+.badge { display:inline-block; background:#fff3e0; color:#8a4a00; padding:8px 14px; border-radius:999px; font-weight:700; }
+.nav { position:sticky; top:18px; z-index:30; background:rgba(255,243,224,.94); backdrop-filter: blur(8px);
+  border:1px solid rgba(211,84,0,.12); padding:16px; border-radius:16px; margin:0 0 22px; box-shadow:0 10px 24px rgba(0,0,0,.08); }
+.nav-title { font-weight:800; color:#8a4a00; margin-bottom:8px; }
+.nav a { display:inline-block; margin:6px 8px 0 0; padding:8px 12px; border-radius:999px; text-decoration:none; color:var(--accent); font-weight:700; background:#fff; border:1px solid #ffe1ca; }
+.nav a:hover { color:var(--purple); transform:translateY(-1px); }
+section { margin-top:26px; }
+h2 { color:var(--purple); border-left:6px solid var(--accent); padding-left:12px; margin:12px 0 14px; }
+p { font-size:16px; line-height:1.9; }
+.card { background:linear-gradient(145deg,#ffffff,#f5f8fa); padding:20px; border-radius:16px; box-shadow:0 8px 18px rgba(0,0,0,.08); border:1px solid rgba(108,92,231,.07); }
+.heroimg, .sectionimg { width:100%; border-radius:16px; display:block; box-shadow:0 12px 24px rgba(0,0,0,.10); border:1px solid rgba(0,0,0,.05); }
+.media { margin:14px 0 18px; }
+.media small { display:block; text-align:right; opacity:.7; margin-top:6px; font-style:italic; }
+.highlight { background:#fff0ab; padding:3px 8px; border-radius:8px; font-weight:700; }
+ul, ol { line-height:1.9; padding-left:24px; }
+.tip-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; }
+.tip { background:var(--mint); border-left:5px solid #1abc9c; padding:14px; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,.06); }
+.quiz-box { background:#fff8ec; border-left:6px solid #f39c12; padding:20px; margin-top:24px; border-radius:14px; box-shadow:0 8px 18px rgba(0,0,0,.08); }
+.quiz-q { margin-top:16px; padding:12px 14px; background:#fff; border-radius:12px; border:1px solid #f3dec0; }
+button { margin-top:10px; padding:10px 14px; border:none; border-radius:10px; background:linear-gradient(90deg,#d35400,#e67e22); color:white; cursor:pointer; font-weight:700; box-shadow:0 6px 14px rgba(211,84,0,.25); }
+.correct { color:#11875d; font-weight:800; } .wrong { color:#c0392b; font-weight:800; }
+.footer-note { text-align:center; margin-top:26px; opacity:.8; }
+@media (max-width: 720px) { .hero h1 { font-size:34px; } .container { padding:18px; } }
+</style>
+<script>
+window.addEventListener('scroll', function() {
+  var winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+  var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  var scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+  document.getElementById('progress').style.width = scrolled + '%';
+});
+function checkAnswer(q, correct) {
+  var options = document.getElementsByName(q);
+  var result = document.getElementById(q + '_result');
+  for (var i = 0; i < options.length; i++) {
+    if (options[i].checked) {
+      if (options[i].value == correct) { result.innerHTML = '✅ Correct!'; result.className = 'correct'; }
+      else { result.innerHTML = '❌ Incorrect. Answer: ' + correct; result.className = 'wrong'; }
+    }
+  }
+}
+</script>
+</head>
+<body>
+  <div class="container">
+    <div class="progress-wrap"><div class="progress-bar"><div id="progress" class="progress"></div></div></div>
+
+    <div class="hero">
+      <div class="badge">💡 Create • Relax • Express</div>
+      <h1>🎨 The Art of Handmade Ceramics ✨</h1>
+      <p>An aesthetic, interactive guide to ceramics with richer content, topic navigation, and quizzes.</p>
+    </div>
+
+    <div class="nav">
+      <div class="nav-title">📌 Explore Topics</div>
+      <a href="#intro">🌟 Introduction</a>
+      <a href="#history">📜 History</a>
+      <a href="#types">🏺 Types</a>
+      <a href="#materials">🧱 Materials</a>
+      <a href="#techniques">⚙️ Techniques</a>
+      <a href="#process">🔥 Process</a>
+      <a href="#benefits">💆 Benefits</a>
+      <a href="#advanced">🚀 Advanced Learning</a>
+      <a href="#mindfulness">🧠 Mindfulness</a>
+      <a href="#tips">💡 Tips</a>
+      <a href="#quiz">🧠 Quiz</a>
+    </div>
+
+    <section id="intro">
+      <h2>🌟 Introduction</h2>
+      <div class="media"><img class="sectionimg" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%221200%22%20height%3D%22500%22%20viewBox%3D%220%200%201200%20500%22%3E%0A%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20x2%3D%221%22%20y1%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23f6a15f%22/%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%237b61ff%22/%3E%0A%20%20%20%20%20%20%3C/linearGradient%3E%0A%20%20%20%20%3C/defs%3E%0A%20%20%20%20%3Crect%20width%3D%221200%22%20height%3D%22500%22%20fill%3D%22url%28%23g%29%22%20rx%3D%2232%22/%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221040%22%20cy%3D%22110%22%20r%3D%2290%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.22%29%22/%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22160%22%20cy%3D%22390%22%20r%3D%22120%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.12%29%22/%3E%0A%20%20%20%20%3Cg%20fill%3D%22rgba%28255%2C255%2C255%2C0.35%29%22%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M220%20330c35-70%2095-110%20160-110s125%2040%20160%20110%22/%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M620%20330c30-60%2082-96%20138-96s108%2036%20138%2096%22/%3E%0A%20%20%20%20%20%20%3Cellipse%20cx%3D%22400%22%20cy%3D%22300%22%20rx%3D%2286%22%20ry%3D%2256%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C0.35%29%22%20stroke-width%3D%2212%22/%3E%0A%20%20%20%20%20%20%3Cellipse%20cx%3D%22760%22%20cy%3D%22300%22%20rx%3D%2270%22%20ry%3D%2246%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C0.35%29%22%20stroke-width%3D%2212%22/%3E%0A%20%20%20%20%3C/g%3E%0A%20%20%20%20%3Ctext%20x%3D%2270%22%20y%3D%22170%22%20font-family%3D%22Segoe%20UI%2C%20Arial%22%20font-size%3D%2244%22%20font-weight%3D%22700%22%20fill%3D%22%23ffffff%22%3EIntroduction%20to%20Ceramics%3C/text%3E%0A%20%20%20%20%3Ctext%20x%3D%2270%22%20y%3D%22225%22%20font-family%3D%22Segoe%20UI%2C%20Arial%22%20font-size%3D%2224%22%20fill%3D%22%23fff7f2%22%3EShape%20clay%20%E2%80%A2%20fire%20it%20%E2%80%A2%20create%20art%20and%20useful%20objects%3C/text%3E%0A%20%20%20%20%3Ctext%20x%3D%2270%22%20y%3D%22410%22%20font-family%3D%22Segoe%20UI%20Emoji%2C%20Segoe%20UI%20Symbol%2C%20Arial%22%20font-size%3D%2274%22%3E%F0%9F%8F%BA%20%E2%9C%A8%20%F0%9F%8E%A8%3C/text%3E%0A%20%20%20%20%3C/svg%3E" alt="Decorative ceramics introduction banner"><small>Inline image embedded in the file so it always loads.</small></div>
+      <div class="card">
+        <p>Ceramics is a <b>creative and relaxing art form</b> where clay is shaped into objects and hardened using heat. It allows you to turn simple materials into beautiful and functional items like cups, vases, and sculptures. For many people, working with clay is not just about creating objects—it’s also about expressing emotions, experimenting with textures, and enjoying the process of making something from scratch.</p>
+        <p>What makes ceramics especially engaging is the way it combines <span class="highlight">art, science, patience, and mindfulness</span>. From preparing the clay to glazing and firing the final object, every stage teaches attention to detail and rewards experimentation.</p>
+      </div>
+    </section>
+
+    <section id="history">
+      <h2>📜 History</h2>
+      <div class="media"><img class="sectionimg" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%221200%22%20height%3D%22500%22%20viewBox%3D%220%200%201200%20500%22%3E%0A%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20x2%3D%221%22%20y1%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23d48b5a%22/%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23845ec2%22/%3E%0A%20%20%20%20%20%20%3C/linearGradient%3E%0A%20%20%20%20%3C/defs%3E%0A%20%20%20%20%3Crect%20width%3D%221200%22%20height%3D%22500%22%20fill%3D%22url%28%23g%29%22%20rx%3D%2232%22/%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221040%22%20cy%3D%22110%22%20r%3D%2290%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.22%29%22/%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22160%22%20cy%3D%22390%22%20r%3D%22120%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.12%29%22/%3E%0A%20%20%20%20%3Cg%20fill%3D%22rgba%28255%2C255%2C255%2C0.35%29%22%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M220%20330c35-70%2095-110%20160-110s125%2040%20160%20110%22/%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M620%20330c30-60%2082-96%20138-96s108%2036%20138%2096%22/%3E%0A%20%20%20%20%20%20%3Cellipse%20cx%3D%22400%22%20cy%3D%22300%22%20rx%3D%2286%22%20ry%3D%2256%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C0.35%29%22%20stroke-width%3D%2212%22/%3E%0A%20%20%20%20%20%20%3Cellipse%20cx%3D%22760%22%20cy%3D%22300%22%20rx%3D%2270%22%20ry%3D%2246%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C0.35%29%22%20stroke-width%3D%2212%22/%3E%0A%20%20%20%20%3C/g%3E%0A%20%20%20%20%3Ctext%20x%3D%2270%22%20y%3D%22170%22%20font-family%3D%22Segoe%20UI%2C%20Arial%22%20font-size%3D%2244%22%20font-weight%3D%22700%22%20fill%3D%22%23ffffff%22%3EA%20Brief%20History%3C/text%3E%0A%20%20%20%20%3Ctext%20x%3D%2270%22%20y%3D%22225%22%20font-family%3D%22Segoe%20UI%2C%20Arial%22%20font-size%3D%2224%22%20fill%3D%22%23fff7f2%22%3ECeramics%20has%20been%20part%20of%20human%20culture%20for%20over%2010%2C000%20years%3C/text%3E%0A%20%20%20%20%3Ctext%20x%3D%2270%22%20y%3D%22410%22%20font-family%3D%22Segoe%20UI%20Emoji%2C%20Segoe%20UI%20Symbol%2C%20Arial%22%20font-size%3D%2274%22%3E%F0%9F%8F%BA%20%E2%9C%A8%20%F0%9F%8E%A8%3C/text%3E%0A%20%20%20%20%3C/svg%3E" alt="Decorative ceramics history banner"></div>
+      <div class="card">
+        <p>Ceramics is one of the oldest crafts in human history, dating back more than 10,000 years. Early civilizations used clay pottery for cooking, storing food, and carrying water. Over time, ceramics evolved into an important cultural art form, reflecting traditions, values, and artistic expression across different societies.</p>
+        <p>Ancient pottery pieces also help historians understand trade, daily life, and technology in early communities. Because fired clay can survive for centuries, ceramics has become a valuable part of archaeological discovery.</p>
+      </div>
+    </section>
+
+    <section id="types">
+      <h2>🏺 Types of Pottery</h2>
+      <div class="media"><img class="sectionimg" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%221200%22%20height%3D%22500%22%20viewBox%3D%220%200%201200%20500%22%3E%0A%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20x2%3D%221%22%20y1%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23ff9671%22/%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%236a4c93%22/%3E%0A%20%20%20%20%20%20%3C/linearGradient%3E%0A%20%20%20%20%3C/defs%3E%0A%20%20%20%20%3Crect%20width%3D%221200%22%20height%3D%22500%22%20fill%3D%22url%28%23g%29%22%20rx%3D%2232%22/%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221040%22%20cy%3D%22110%22%20r%3D%2290%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.22%29%22/%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22160%22%20cy%3D%22390%22%20r%3D%22120%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.12%29%22/%3E%0A%20%20%20%20%3Cg%20fill%3D%22rgba%28255%2C255%2C255%2C0.35%29%22%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M220%20330c35-70%2095-110%20160-110s125%2040%20160%20110%22/%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M620%20330c30-60%2082-96%20138-96s108%2036%20138%2096%22/%3E%0A%20%20%20%20%20%20%3Cellipse%20cx%3D%22400%22%20cy%3D%22300%22%20rx%3D%2286%22%20ry%3D%2256%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C0.35%29%22%20stroke-width%3D%2212%22/%3E%0A%20%20%20%20%20%20%3Cellipse%20cx%3D%22760%22%20cy%3D%22300%22%20rx%3D%2270%22%20ry%3D%2246%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C0.35%29%22%20stroke-width%3D%2212%22/%3E%0A%20%20%20%20%3C/g%3E%0A%20%20%20%20%3Ctext%20x%3D%2270%22%20y%3D%22170%22%20font-family%3D%22Segoe%20UI%2C%20Arial%22%20font-size%3D%2244%22%20font-weight%3D%22700%22%20fill%3D%22%23ffffff%22%3ETypes%20of%20Pottery%3C/text%3E%0A%20%20%20%20%3Ctext%20x%3D%2270%22%20y%3D%22225%22%20font-family%3D%22Segoe%20UI%2C%20Arial%22%20font-size%3D%2224%22%20fill%3D%22%23fff7f2%22%3EHand-building%20%E2%80%A2%20Wheel-throwing%20%E2%80%A2%20Sculptural%20ceramics%3C/text%3E%0A%20%20%20%20%3Ctext%20x%3D%2270%22%20y%3D%22410%22%20font-family%3D%22Segoe%20UI%20Emoji%2C%20Segoe%20UI%20Symbol%2C%20Arial%22%20font-size%3D%2274%22%3E%F0%9F%8F%BA%20%E2%9C%A8%20%F0%9F%8E%A8%3C/text%3E%0A%20%20%20%20%3C/svg%3E" alt="Decorative pottery types banner"></div>
+      <div class="card">
+        <ul>
+          <li>🤲 <b>Hand-building:</b> A beginner-friendly method that involves shaping clay using hands.</li>
+          <li>🛞 <b>Wheel-throwing:</b> Uses a spinning wheel to create symmetrical shapes.</li>
+          <li>🎭 <b>Sculptural ceramics:</b> Focuses on artistic and creative forms.</li>
+        </ul>
+        <p>Each technique offers a unique experience and allows artists to explore different styles and levels of complexity. Hand-building is often the most accessible starting point, while wheel-throwing introduces rhythm, control, and symmetry.</p>
+      </div>
+    </section>
+
+    <section id="materials">
+      <h2>🧱 Materials</h2>
+      <div class="media"><img class="sectionimg" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%221200%22%20height%3D%22500%22%20viewBox%3D%220%200%201200%20500%22%3E%0A%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20x2%3D%221%22%20y1%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23f9c74f%22/%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23f3722c%22/%3E%0A%20%20%20%20%20%20%3C/linearGradient%3E%0A%20%20%20%20%3C/defs%3E%0A%20%20%20%20%3Crect%20width%3D%221200%22%20height%3D%22500%22%20fill%3D%22url%28%23g%29%22%20rx%3D%2232%22/%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221040%22%20cy%3D%22110%22%20r%3D%2290%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.22%29%22/%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22160%22%20cy%3D%22390%22%20r%3D%22120%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.12%29%22/%3E%0A%20%20%20%20%3Cg%20fill%3D%22rgba%28255%2C255%2C255%2C0.35%29%22%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M220%20330c35-70%2095-110%20160-110s125%2040%20160%20110%22/%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M620%20330c30-60%2082-96%20138-96s108%2036%20138%2096%22/%3E%0A%20%20%20%20%20%20%3Cellipse%20cx%3D%22400%22%20cy%3D%22300%22%20rx%3D%2286%22%20ry%3D%2256%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C0.35%29%22%20stroke-width%3D%2212%22/%3E%0A%20%20%20%20%20%20%3Cellipse%20cx%3D%22760%22%20cy%3D%22300%22%20rx%3D%2270%22%20ry%3D%2246%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C0.35%29%22%20stroke-width%3D%2212%22/%3E%0A%20%20%20%20%3C/g%3E%0A%20%20%20%20%3Ctext%20x%3D%2270%22%20y%3D%22170%22%20font-family%3D%22Segoe%20UI%2C%20Arial%22%20font-size%3D%2244%22%20font-weight%3D%22700%22%20fill%3D%22%23ffffff%22%3EMaterials%20%26%20Clay%20Bodies%3C/text%3E%0A%20%20%20%20%3Ctext%20x%3D%2270%22%20y%3D%22225%22%20font-family%3D%22Segoe%20UI%2C%20Arial%22%20font-size%3D%2224%22%20fill%3D%22%23fff7f2%22%3EEarthenware%20%E2%80%A2%20Stoneware%20%E2%80%A2%20Porcelain%20%E2%80%A2%20Glazes%3C/text%3E%0A%20%20%20%20%3Ctext%20x%3D%2270%22%20y%3D%22410%22%20font-family%3D%22Segoe%20UI%20Emoji%2C%20Segoe%20UI%20Symbol%2C%20Arial%22%20font-size%3D%2274%22%3E%F0%9F%8F%BA%20%E2%9C%A8%20%F0%9F%8E%A8%3C/text%3E%0A%20%20%20%20%3C/svg%3E" alt="Decorative materials banner"></div>
+      <div class="card">
+        <p>Ceramic artists use different types of clay such as earthenware, stoneware, and porcelain. Each type has unique properties that affect durability, texture, and appearance. Glazes are applied after firing to enhance visual appeal and make objects waterproof.</p>
+        <p><b>Earthenware</b> is often easier for beginners, <b>stoneware</b> is durable and practical, and <b>porcelain</b> is smooth, refined, and delicate-looking. The choice of material shapes the final style and function of the piece.</p>
+      </div>
+    </section>
+
+    <section id="techniques">
+      <h2>⚙️ Techniques</h2>
+      <div class="media"><img class="sectionimg" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%221200%22%20height%3D%22500%22%20viewBox%3D%220%200%201200%20500%22%3E%0A%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20x2%3D%221%22%20y1%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%2343aa8b%22/%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23577590%22/%3E%0A%20%20%20%20%20%20%3C/linearGradient%3E%0A%20%20%20%20%3C/defs%3E%0A%20%20%20%20%3Crect%20width%3D%221200%22%20height%3D%22500%22%20fill%3D%22url%28%23g%29%22%20rx%3D%2232%22/%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221040%22%20cy%3D%22110%22%20r%3D%2290%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.22%29%22/%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22160%22%20cy%3D%22390%22%20r%3D%22120%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.12%29%22/%3E%0A%20%20%20%20%3Cg%20fill%3D%22rgba%28255%2C255%2C255%2C0.35%29%22%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M220%20330c35-70%2095-110%20160-110s125%2040%20160%20110%22/%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M620%20330c30-60%2082-96%20138-96s108%2036%20138%2096%22/%3E%0A%20%20%20%20%20%20%3Cellipse%20cx%3D%22400%22%20cy%3D%22300%22%20rx%3D%2286%22%20ry%3D%2256%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C0.35%29%22%20stroke-width%3D%2212%22/%3E%0A%20%20%20%20%20%20%3Cellipse%20cx%3D%22760%22%20cy%3D%22300%22%20rx%3D%2270%22%20ry%3D%2246%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C0.35%29%22%20stroke-width%3D%2212%22/%3E%0A%20%20%20%20%3C/g%3E%0A%20%20%20%20%3Ctext%20x%3D%2270%22%20y%3D%22170%22%20font-family%3D%22Segoe%20UI%2C%20Arial%22%20font-size%3D%2244%22%20font-weight%3D%22700%22%20fill%3D%22%23ffffff%22%3ECore%20Techniques%3C/text%3E%0A%20%20%20%20%3Ctext%20x%3D%2270%22%20y%3D%22225%22%20font-family%3D%22Segoe%20UI%2C%20Arial%22%20font-size%3D%2224%22%20fill%3D%22%23fff7f2%22%3EWedging%20%E2%80%A2%20shaping%20%E2%80%A2%20trimming%20%E2%80%A2%20glazing%3C/text%3E%0A%20%20%20%20%3Ctext%20x%3D%2270%22%20y%3D%22410%22%20font-family%3D%22Segoe%20UI%20Emoji%2C%20Segoe%20UI%20Symbol%2C%20Arial%22%20font-size%3D%2274%22%3E%F0%9F%8F%BA%20%E2%9C%A8%20%F0%9F%8E%A8%3C/text%3E%0A%20%20%20%20%3C/svg%3E" alt="Decorative techniques banner"></div>
+      <div class="card">
+        <p>Techniques are essential for shaping and refining ceramic pieces. Wedging ensures the clay is smooth and free from air pockets, shaping allows the creation of forms, and glazing enhances both appearance and durability.</p>
+        <ul>
+          <li><b>Wedging:</b> Removes trapped air and improves consistency.</li>
+          <li><b>Centering:</b> Helps keep clay balanced on the wheel.</li>
+          <li><b>Trimming:</b> Refines shape after partial drying.</li>
+          <li><b>Glazing:</b> Adds colour, texture, shine, and protection.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="process">
+      <h2>🔥 Ceramic Process</h2>
+      <div class="media"><img class="sectionimg" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%221200%22%20height%3D%22500%22%20viewBox%3D%220%200%201200%20500%22%3E%0A%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20x2%3D%221%22%20y1%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23f9844a%22/%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23f94144%22/%3E%0A%20%20%20%20%20%20%3C/linearGradient%3E%0A%20%20%20%20%3C/defs%3E%0A%20%20%20%20%3Crect%20width%3D%221200%22%20height%3D%22500%22%20fill%3D%22url%28%23g%29%22%20rx%3D%2232%22/%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221040%22%20cy%3D%22110%22%20r%3D%2290%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.22%29%22/%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22160%22%20cy%3D%22390%22%20r%3D%22120%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.12%29%22/%3E%0A%20%20%20%20%3Cg%20fill%3D%22rgba%28255%2C255%2C255%2C0.35%29%22%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M220%20330c35-70%2095-110%20160-110s125%2040%20160%20110%22/%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M620%20330c30-60%2082-96%20138-96s108%2036%20138%2096%22/%3E%0A%20%20%20%20%20%20%3Cellipse%20cx%3D%22400%22%20cy%3D%22300%22%20rx%3D%2286%22%20ry%3D%2256%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C0.35%29%22%20stroke-width%3D%2212%22/%3E%0A%20%20%20%20%20%20%3Cellipse%20cx%3D%22760%22%20cy%3D%22300%22%20rx%3D%2270%22%20ry%3D%2246%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C0.35%29%22%20stroke-width%3D%2212%22/%3E%0A%20%20%20%20%3C/g%3E%0A%20%20%20%20%3Ctext%20x%3D%2270%22%20y%3D%22170%22%20font-family%3D%22Segoe%20UI%2C%20Arial%22%20font-size%3D%2244%22%20font-weight%3D%22700%22%20fill%3D%22%23ffffff%22%3EThe%20Ceramic%20Process%3C/text%3E%0A%20%20%20%20%3Ctext%20x%3D%2270%22%20y%3D%22225%22%20font-family%3D%22Segoe%20UI%2C%20Arial%22%20font-size%3D%2224%22%20fill%3D%22%23fff7f2%22%3EPrepare%20%E2%80%A2%20shape%20%E2%80%A2%20dry%20%E2%80%A2%20fire%20%E2%80%A2%20glaze%3C/text%3E%0A%20%20%20%20%3Ctext%20x%3D%2270%22%20y%3D%22410%22%20font-family%3D%22Segoe%20UI%20Emoji%2C%20Segoe%20UI%20Symbol%2C%20Arial%22%20font-size%3D%2274%22%3E%F0%9F%8F%BA%20%E2%9C%A8%20%F0%9F%8E%A8%3C/text%3E%0A%20%20%20%20%3C/svg%3E" alt="Decorative ceramic process banner"></div>
+      <div class="card">
+        <p>The ceramic process includes preparation, shaping, drying, firing, and glazing. Each step plays a crucial role in transforming raw clay into a finished product, requiring patience and attention to detail.</p>
+        <ol>
+          <li><b>Preparation:</b> Knead or wedge the clay.</li>
+          <li><b>Shaping:</b> Build the form by hand or wheel.</li>
+          <li><b>Drying:</b> Allow moisture to leave slowly to reduce cracks.</li>
+          <li><b>Firing:</b> Heat the clay in a kiln to harden it.</li>
+          <li><b>Glazing and final firing:</b> Add colour and a finished surface.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="benefits">
+      <h2>💆 Benefits</h2>
+      <div class="media"><img class="sectionimg" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%221200%22%20height%3D%22500%22%20viewBox%3D%220%200%201200%20500%22%3E%0A%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20x2%3D%221%22%20y1%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%234cc9f0%22/%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%234361ee%22/%3E%0A%20%20%20%20%20%20%3C/linearGradient%3E%0A%20%20%20%20%3C/defs%3E%0A%20%20%20%20%3Crect%20width%3D%221200%22%20height%3D%22500%22%20fill%3D%22url%28%23g%29%22%20rx%3D%2232%22/%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221040%22%20cy%3D%22110%22%20r%3D%2290%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.22%29%22/%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22160%22%20cy%3D%22390%22%20r%3D%22120%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.12%29%22/%3E%0A%20%20%20%20%3Cg%20fill%3D%22rgba%28255%2C255%2C255%2C0.35%29%22%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M220%20330c35-70%2095-110%20160-110s125%2040%20160%20110%22/%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M620%20330c30-60%2082-96%20138-96s108%2036%20138%2096%22/%3E%0A%20%20%20%20%20%20%3Cellipse%20cx%3D%22400%22%20cy%3D%22300%22%20rx%3D%2286%22%20ry%3D%2256%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C0.35%29%22%20stroke-width%3D%2212%22/%3E%0A%20%20%20%20%20%20%3Cellipse%20cx%3D%22760%22%20cy%3D%22300%22%20rx%3D%2270%22%20ry%3D%2246%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C0.35%29%22%20stroke-width%3D%2212%22/%3E%0A%20%20%20%20%3C/g%3E%0A%20%20%20%20%3Ctext%20x%3D%2270%22%20y%3D%22170%22%20font-family%3D%22Segoe%20UI%2C%20Arial%22%20font-size%3D%2244%22%20font-weight%3D%22700%22%20fill%3D%22%23ffffff%22%3EBenefits%20of%20Ceramics%3C/text%3E%0A%20%20%20%20%3Ctext%20x%3D%2270%22%20y%3D%22225%22%20font-family%3D%22Segoe%20UI%2C%20Arial%22%20font-size%3D%2224%22%20fill%3D%22%23fff7f2%22%3ERelaxation%20%E2%80%A2%20creativity%20%E2%80%A2%20focus%20%E2%80%A2%20patience%3C/text%3E%0A%20%20%20%20%3Ctext%20x%3D%2270%22%20y%3D%22410%22%20font-family%3D%22Segoe%20UI%20Emoji%2C%20Segoe%20UI%20Symbol%2C%20Arial%22%20font-size%3D%2274%22%3E%F0%9F%8F%BA%20%E2%9C%A8%20%F0%9F%8E%A8%3C/text%3E%0A%20%20%20%20%3C/svg%3E" alt="Decorative benefits banner"></div>
+      <div class="card">
+        <ul>
+          <li>😌 Helps reduce stress and anxiety</li>
+          <li>🎨 Encourages creativity</li>
+          <li>🧠 Improves focus and patience</li>
+        </ul>
+        <p>Many people enjoy ceramics because it offers a break from fast-paced routines. The slow, physical process of shaping clay can feel calming and grounding, while finishing a piece provides a strong sense of achievement.</p>
+      </div>
+    </section>
+
+    <section id="advanced">
+      <h2>🚀 Advanced Learning</h2>
+      <div class="media"><img class="sectionimg" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%221200%22%20height%3D%22500%22%20viewBox%3D%220%200%201200%20500%22%3E%0A%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20x2%3D%221%22%20y1%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%237209b7%22/%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23f72585%22/%3E%0A%20%20%20%20%20%20%3C/linearGradient%3E%0A%20%20%20%20%3C/defs%3E%0A%20%20%20%20%3Crect%20width%3D%221200%22%20height%3D%22500%22%20fill%3D%22url%28%23g%29%22%20rx%3D%2232%22/%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221040%22%20cy%3D%22110%22%20r%3D%2290%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.22%29%22/%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22160%22%20cy%3D%22390%22%20r%3D%22120%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.12%29%22/%3E%0A%20%20%20%20%3Cg%20fill%3D%22rgba%28255%2C255%2C255%2C0.35%29%22%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M220%20330c35-70%2095-110%20160-110s125%2040%20160%20110%22/%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M620%20330c30-60%2082-96%20138-96s108%2036%20138%2096%22/%3E%0A%20%20%20%20%20%20%3Cellipse%20cx%3D%22400%22%20cy%3D%22300%22%20rx%3D%2286%22%20ry%3D%2256%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C0.35%29%22%20stroke-width%3D%2212%22/%3E%0A%20%20%20%20%20%20%3Cellipse%20cx%3D%22760%22%20cy%3D%22300%22%20rx%3D%2270%22%20ry%3D%2246%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C0.35%29%22%20stroke-width%3D%2212%22/%3E%0A%20%20%20%20%3C/g%3E%0A%20%20%20%20%3Ctext%20x%3D%2270%22%20y%3D%22170%22%20font-family%3D%22Segoe%20UI%2C%20Arial%22%20font-size%3D%2244%22%20font-weight%3D%22700%22%20fill%3D%22%23ffffff%22%3EAdvanced%20Learning%3C/text%3E%0A%20%20%20%20%3Ctext%20x%3D%2270%22%20y%3D%22225%22%20font-family%3D%22Segoe%20UI%2C%20Arial%22%20font-size%3D%2224%22%20fill%3D%22%23fff7f2%22%3ESlip%20casting%20%E2%80%A2%20kiln%20control%20%E2%80%A2%20surface%20decoration%3C/text%3E%0A%20%20%20%20%3Ctext%20x%3D%2270%22%20y%3D%22410%22%20font-family%3D%22Segoe%20UI%20Emoji%2C%20Segoe%20UI%20Symbol%2C%20Arial%22%20font-size%3D%2274%22%3E%F0%9F%8F%BA%20%E2%9C%A8%20%F0%9F%8E%A8%3C/text%3E%0A%20%20%20%20%3C/svg%3E" alt="Decorative advanced learning banner"></div>
+      <div class="card">
+        <p>As learners progress, they can explore advanced ceramic techniques such as slip casting, intricate surface decoration, and kiln temperature control. Understanding these areas can significantly improve the quality of ceramic work and open up opportunities for professional-level creation.</p>
+        <p>Advanced practice also involves testing clay bodies and glazes, studying shrinkage and firing temperatures, and learning how decoration affects function and aesthetics.</p>
+      </div>
+    </section>
+
+    <section id="mindfulness">
+      <h2>🧠 Ceramics & Mindfulness</h2>
+      <div class="media"><img class="sectionimg" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%221200%22%20height%3D%22500%22%20viewBox%3D%220%200%201200%20500%22%3E%0A%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20x2%3D%221%22%20y1%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%2390be6d%22/%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23277da1%22/%3E%0A%20%20%20%20%20%20%3C/linearGradient%3E%0A%20%20%20%20%3C/defs%3E%0A%20%20%20%20%3Crect%20width%3D%221200%22%20height%3D%22500%22%20fill%3D%22url%28%23g%29%22%20rx%3D%2232%22/%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221040%22%20cy%3D%22110%22%20r%3D%2290%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.22%29%22/%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22160%22%20cy%3D%22390%22%20r%3D%22120%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.12%29%22/%3E%0A%20%20%20%20%3Cg%20fill%3D%22rgba%28255%2C255%2C255%2C0.35%29%22%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M220%20330c35-70%2095-110%20160-110s125%2040%20160%20110%22/%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M620%20330c30-60%2082-96%20138-96s108%2036%20138%2096%22/%3E%0A%20%20%20%20%20%20%3Cellipse%20cx%3D%22400%22%20cy%3D%22300%22%20rx%3D%2286%22%20ry%3D%2256%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C0.35%29%22%20stroke-width%3D%2212%22/%3E%0A%20%20%20%20%20%20%3Cellipse%20cx%3D%22760%22%20cy%3D%22300%22%20rx%3D%2270%22%20ry%3D%2246%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C0.35%29%22%20stroke-width%3D%2212%22/%3E%0A%20%20%20%20%3C/g%3E%0A%20%20%20%20%3Ctext%20x%3D%2270%22%20y%3D%22170%22%20font-family%3D%22Segoe%20UI%2C%20Arial%22%20font-size%3D%2244%22%20font-weight%3D%22700%22%20fill%3D%22%23ffffff%22%3ECeramics%20%26%20Mindfulness%3C/text%3E%0A%20%20%20%20%3Ctext%20x%3D%2270%22%20y%3D%22225%22%20font-family%3D%22Segoe%20UI%2C%20Arial%22%20font-size%3D%2224%22%20fill%3D%22%23fff7f2%22%3ESlow%20making%20helps%20calm%20the%20mind%20and%20build%20focus%3C/text%3E%0A%20%20%20%20%3Ctext%20x%3D%2270%22%20y%3D%22410%22%20font-family%3D%22Segoe%20UI%20Emoji%2C%20Segoe%20UI%20Symbol%2C%20Arial%22%20font-size%3D%2274%22%3E%F0%9F%8F%BA%20%E2%9C%A8%20%F0%9F%8E%A8%3C/text%3E%0A%20%20%20%20%3C/svg%3E" alt="Decorative mindfulness banner"></div>
+      <div class="card">
+        <p>Ceramics promotes mindfulness by encouraging individuals to focus on the present moment. The repetitive movements, tactile sensation of clay, and creative expression help reduce stress and improve mental well-being. This makes ceramics a powerful tool for relaxation and personal growth.</p>
+        <p>Unlike many digital activities, ceramics is hands-on and sensory. Feeling texture, pressure, and movement helps people slow down and become more aware of the process rather than rushing to a result.</p>
+      </div>
+    </section>
+
+    <section id="tips">
+      <h2>💡 Tips</h2>
+      <div class="media"><img class="sectionimg" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%221200%22%20height%3D%22500%22%20viewBox%3D%220%200%201200%20500%22%3E%0A%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20x2%3D%221%22%20y1%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23f8961e%22/%3E%0A%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%2343aa8b%22/%3E%0A%20%20%20%20%20%20%3C/linearGradient%3E%0A%20%20%20%20%3C/defs%3E%0A%20%20%20%20%3Crect%20width%3D%221200%22%20height%3D%22500%22%20fill%3D%22url%28%23g%29%22%20rx%3D%2232%22/%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221040%22%20cy%3D%22110%22%20r%3D%2290%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.22%29%22/%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22160%22%20cy%3D%22390%22%20r%3D%22120%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.12%29%22/%3E%0A%20%20%20%20%3Cg%20fill%3D%22rgba%28255%2C255%2C255%2C0.35%29%22%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M220%20330c35-70%2095-110%20160-110s125%2040%20160%20110%22/%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M620%20330c30-60%2082-96%20138-96s108%2036%20138%2096%22/%3E%0A%20%20%20%20%20%20%3Cellipse%20cx%3D%22400%22%20cy%3D%22300%22%20rx%3D%2286%22%20ry%3D%2256%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C0.35%29%22%20stroke-width%3D%2212%22/%3E%0A%20%20%20%20%20%20%3Cellipse%20cx%3D%22760%22%20cy%3D%22300%22%20rx%3D%2270%22%20ry%3D%2246%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C0.35%29%22%20stroke-width%3D%2212%22/%3E%0A%20%20%20%20%3C/g%3E%0A%20%20%20%20%3Ctext%20x%3D%2270%22%20y%3D%22170%22%20font-family%3D%22Segoe%20UI%2C%20Arial%22%20font-size%3D%2244%22%20font-weight%3D%22700%22%20fill%3D%22%23ffffff%22%3EBeginner%20Tips%3C/text%3E%0A%20%20%20%20%3Ctext%20x%3D%2270%22%20y%3D%22225%22%20font-family%3D%22Segoe%20UI%2C%20Arial%22%20font-size%3D%2224%22%20fill%3D%22%23fff7f2%22%3EStart%20simple%20%E2%80%A2%20keep%20clay%20moist%20%E2%80%A2%20practice%20often%3C/text%3E%0A%20%20%20%20%3Ctext%20x%3D%2270%22%20y%3D%22410%22%20font-family%3D%22Segoe%20UI%20Emoji%2C%20Segoe%20UI%20Symbol%2C%20Arial%22%20font-size%3D%2274%22%3E%F0%9F%8F%BA%20%E2%9C%A8%20%F0%9F%8E%A8%3C/text%3E%0A%20%20%20%20%3C/svg%3E" alt="Decorative beginner tips banner"></div>
+      <div class="card">
+        <div class="tip-grid">
+          <div class="tip">✔️ Start simple and focus on basic shapes</div>
+          <div class="tip">✔️ Keep clay moist to avoid cracks</div>
+          <div class="tip">✔️ Practice regularly to build confidence</div>
+          <div class="tip">✔️ Allow time for drying and avoid rushing the process</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="quiz">
+      <h2>🧠 Quiz Time!</h2>
+      <div class="quiz-box">
+        <div class="quiz-q">
+          <p><b>1. What does wedging do?</b></p>
+          <label><input type="radio" name="q1" value="Add color"> Add color</label><br>
+          <label><input type="radio" name="q1" value="Remove air bubbles"> Remove air bubbles</label><br>
+          <label><input type="radio" name="q1" value="Heat clay"> Heat clay</label><br>
+          <button onclick="checkAnswer('q1','Remove air bubbles')">Submit</button>
+          <p id="q1_result"></p>
+        </div>
+        <div class="quiz-q">
+          <p><b>2. Which material is known for being smooth and delicate?</b></p>
+          <label><input type="radio" name="q2" value="Stoneware"> Stoneware</label><br>
+          <label><input type="radio" name="q2" value="Porcelain"> Porcelain</label><br>
+          <label><input type="radio" name="q2" value="Earthenware"> Earthenware</label><br>
+          <button onclick="checkAnswer('q2','Porcelain')">Submit</button>
+          <p id="q2_result"></p>
+        </div>
+      </div>
+    </section>
+
+    <p class="footer-note">✨ Embedded images were added directly into this HTML so they render reliably without external web access.</p>
+  </div>
+</body>
+</html>
