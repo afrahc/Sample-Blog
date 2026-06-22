@@ -1,2 +1,0 @@
-# Sample-Blog
-Sample blog
